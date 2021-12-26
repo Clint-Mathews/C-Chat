@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { auth, db } from "../firebase";
 import { query, where, collection, getDocs } from "firebase/firestore";
 import { useRouter } from "next/router";
+import Link from "next/link";
 function Chat({ id, users, currentUser }) {
   const router = useRouter();
   const [recipientUser, setRecipientUser] = useState(null);
@@ -20,18 +21,21 @@ function Chat({ id, users, currentUser }) {
     }
     getUser();
   }, [recipientEmail]);
-  const enterChat = () => {
-    router.push(`/chat/${id}`);
-  };
   return (
-    <Container onClick={enterChat}>
-      {recipientUser ? (
-        <UserAvatar src={recipientUser.photoURL} />
-      ) : (
-        <UserAvatar>{recipientEmail[0]}</UserAvatar>
-      )}
-      <p>{recipientEmail}</p>
-    </Container>
+    <>
+      <Link href={`/chat/${id}`}>
+        <a>
+          <Container>
+            {recipientUser ? (
+              <UserAvatar src={recipientUser.photoURL} />
+            ) : (
+              <UserAvatar>{recipientEmail[0]}</UserAvatar>
+            )}
+            <p>{recipientEmail}</p>
+          </Container>
+        </a>
+      </Link>
+    </>
   );
 }
 
