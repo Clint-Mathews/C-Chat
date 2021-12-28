@@ -1,14 +1,11 @@
 import styled from "styled-components";
-import { db, auth } from "../firebase";
-import { Avatar, IconButton } from "@material-ui/core";
-import AttachFileIcon from "@material-ui/icons/AttachFile";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
+import { db } from "../firebase";
+import Avatar from "@material-ui/core/Avatar";
+import IconButton from "@material-ui/core/IconButton";
 import Message from "./Message";
 import { useRouter } from "next/router";
 import {
   doc,
-  getDoc,
-  getDocs,
   collection,
   query,
   orderBy,
@@ -20,7 +17,6 @@ import {
 } from "firebase/firestore";
 import { useEffect, useState, useRef } from "react";
 import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
-import MicIcon from "@material-ui/icons/Mic";
 import { useAuth } from "../Auth";
 import getRecipientEmail from "../utils/getRecipientEmail";
 import TimeAgo from "timeago-react";

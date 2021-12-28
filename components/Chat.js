@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import { Avatar } from "@material-ui/core";
+import Avatar from "@material-ui/core/Avatar";
 import getRecipientEmail from "../utils/getRecipientEmail";
 import { useEffect, useState } from "react";
-import { auth, db } from "../firebase";
+import { db } from "../firebase";
 import { query, where, collection, getDocs } from "firebase/firestore";
 import moment from "moment";
-import Link from "next/link";
 import { hide } from "../utils/reducer/showHideSidebarSlice";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";

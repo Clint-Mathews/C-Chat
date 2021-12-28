@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Sidebar from "../components/Sidebar";
-import * as React from "react";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import Button from "@material-ui/core/Button";
 import { useAuth } from "../Auth";

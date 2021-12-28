@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { Avatar, IconButton, Button } from "@material-ui/core";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
+import Avatar from "@material-ui/core/Avatar";
+import IconButton from "@material-ui/core/IconButton";
+import Button from "@material-ui/core/Button";
 import ChatIcon from "@material-ui/icons/Chat";
-import SearchIcon from "@material-ui/icons/Search";
 import * as EmailValidator from "email-validator";
-import { auth, db } from "../firebase";
+import { db } from "../firebase";
 import { useEffect, useState } from "react";
 import Chat from "./Chat";
 import {

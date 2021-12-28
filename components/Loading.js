@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
 import Head from "next/head";
 import ReactLoading from "react-loading";
 function Loading({ type, color }) {

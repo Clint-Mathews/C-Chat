@@ -2,7 +2,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Fade from "@material-ui/core/Fade";
 import { useState } from "react";
-import { IconButton } from "@material-ui/core";
+import IconButton from "@material-ui/core/IconButton";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { auth } from "../firebase";
 import { useRouter } from "next/router";
