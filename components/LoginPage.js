@@ -38,8 +38,8 @@ export default function LoginPage() {
               width="20px"
               height="20px"
               alt="Google sign-in"
-              blurDataURL="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
+              blurDataURL="/google.png"
+              src="/google.png"
             />
           </span>
           Sign In

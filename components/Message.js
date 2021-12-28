@@ -1,12 +1,12 @@
 import moment from "moment";
 import styled from "styled-components";
 import { useAuth } from "../Auth";
-function Message({ key, user, message }) {
+function Message({ id, user, message }) {
   const { currentUser } = useAuth();
   const TypeOfMessage = user === currentUser.email;
   // console.log(message);
   return (
-    <Container key={key}>
+    <Container key={id}>
       {TypeOfMessage ? (
         <Sender>
           {message.message}{" "}

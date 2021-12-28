@@ -17,36 +17,48 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import { useAuth } from "../Auth";
+import Friends from "./Friends";
+import FadeMenu from "./FadeMenu";
+import { useRouter } from "next/router";
+import Link from "next/link";
 function Sidebar() {
   const { currentUser } = useAuth();
-  // console.log(currentUser);
+  const router = useRouter();
   const [chat, setChat] = useState([]);
-  const [friends, setFriends] = useState([]);
+  // const [friends, setFriends] = useState([]);
   const chatsCollectionRef = collection(db, "chats");
   const userChatRef = query(
     chatsCollectionRef,
-    where("users", "array-contains", currentUser.email)
+    where("users", "array-contains", currentUser?.email)
   );
+  async function getChat() {
+    const usersSnapshot = await getDocs(userChatRef);
+    const chatData = usersSnapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+      timestamp: doc.data().timestamp?.toDate().getTime(),
+    }));
+    setChat(chatData);
+    // console.log(chatData);
+    // if (chatData?.length > 0) {
+    //   router.push(`/chat/${chatData[0]?.id}`);
+    // }
+  }
   useEffect(() => {
-    async function getFriends() {
-      const usersRef = collection(db, "users");
-      const usersQuery = query(
-        usersRef,
-        where("email", "!=", currentUser.email)
-      );
-      const usersSnapshot = await getDocs(usersQuery);
-      setFriends(
-        usersSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-      );
-    }
-    async function getChat() {
-      const usersSnapshot = await getDocs(userChatRef);
-      setChat(usersSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-      // console.log(
-      //   usersSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-      // );
-    }
-    getFriends();
+    // Get Friends if needed
+    // async function getFriends() {
+    //   const usersRef = collection(db, "users");
+    //   const usersQuery = query(
+    //     usersRef,
+    //     where("email", "!=", currentUser?.email)
+    //   );
+    //   const usersSnapshot = await getDocs(usersQuery);
+    //   setFriends(
+    //     usersSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+    //   );
+    // }
+
+    // getFriends();
     getChat();
   }, []);
 
@@ -65,6 +77,30 @@ function Sidebar() {
   //   setChat(data);
   //   // console.log(data);
   // };
+
+  const createChat = async () => {
+    const input = prompt("Enter an email you want to chat with ?");
+    if (!input) return null;
+    // We add the chat to DB "chats" if does not already exists.
+    // console.log(EmailValidator.validate(input));
+    // console.log(input !== user.email);
+    // console.log(!checkChatExist(input));
+    // console.log(!(await checkChatExist(input)));
+    if (
+      EmailValidator.validate(input) &&
+      !(await checkChatExist(input)) &&
+      input !== currentUser.email
+    ) {
+      // We need to add chat to Db
+      // console.log("im here");
+      await setDoc(doc(chatsCollectionRef), {
+        users: [currentUser.email, input],
+      });
+      getChat();
+    } else {
+      // Email invalid
+    }
+  };
   async function checkChatExist(recipientEmail) {
     return await getDocs(userChatRef).then((chatsSnap) => {
       return !!chatsSnap?.docs.find(
@@ -138,56 +174,37 @@ function Sidebar() {
     // );
   }
 
-  const createChat = async () => {
-    const input = prompt("Enter an email you want to chat with ?");
-    if (!input) return null;
-    // We add the chat to DB "chats" if does not already exists.
-    // console.log(EmailValidator.validate(input));
-    // console.log(input !== user.email);
-    // console.log(!checkChatExist(input));
-    // console.log(!(await checkChatExist(input)));
-    if (
-      EmailValidator.validate(input) &&
-      !(await checkChatExist(input)) &&
-      input !== currentUser.email
-    ) {
-      // We need to add chat to Db
-      // console.log("im here");
-      await setDoc(doc(chatsCollectionRef), {
-        users: [currentUser.email, input],
-      });
-    } else {
-      // Email invalid
-    }
-  };
-
+  const createChatFromFriend = () => {};
   return (
     <Container>
       <Header>
-        <UserAvatar src={currentUser.photoURL} onClick={() => auth.signOut()} />
+        <Link href="/" passHref>
+          <UserAvatar src={currentUser.photoURL} />
+        </Link>
         <IconsContainer>
-          <IconButton>
+          <IconButton onClick={createChat}>
             <ChatIcon />
           </IconButton>
-          <IconButton>
-            <MoreVertIcon />
-          </IconButton>
+          <FadeMenu />
         </IconsContainer>
       </Header>
-      <Search>
+      {/* <Search>
         <SearchIcon />
         <SearchInput placeholder="Search chat" />
-      </Search>
-      <SideBarButton onClick={createChat}>Start a new Chat</SideBarButton>
+      </Search> */}
+      {/* <SideBarButton onClick={createChat}>Start a new Chat</SideBarButton> */}
+      <SideBarSeperator>CHATS</SideBarSeperator>
       {/* list of chats will be here */}
       {chat.map((chat) => (
-        <Chat
-          key={chat.id}
-          id={chat.id}
-          currentUser={currentUser}
-          users={chat.users}
-        />
+        <Chat key={chat.id} currentUser={currentUser} chat={chat} />
       ))}
+      {/* {friends.map((friend) => (
+        <Friends
+          key={friend.id}
+          photoURL={friend.photoURL}
+          displayName={friend.displayName}
+        />
+      ))} */}
       {/* {friends.map((chat) => (
         <Chat key={chat.id} id={chat.id} users={chat} />
       ))} */}
@@ -245,6 +262,17 @@ const SearchInput = styled.input`
 `;
 const SideBarButton = styled(Button)`
   width: 100%;
+  //Increase priority of rule
+  &&& {
+    border-top: 1px solid whitesmoke;
+    border-bottom: 1px solid whitesmoke;
+  }
+`;
+const SideBarSeperator = styled.div`
+  width: 100%;
+  padding: 8px;
+  text-align: center;
+  font-weight: 500;
   //Increase priority of rule
   &&& {
     border-top: 1px solid whitesmoke;

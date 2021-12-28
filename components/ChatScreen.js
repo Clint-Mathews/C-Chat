@@ -24,6 +24,7 @@ import MicIcon from "@material-ui/icons/Mic";
 import { useAuth } from "../Auth";
 import getRecipientEmail from "../utils/getRecipientEmail";
 import TimeAgo from "timeago-react";
+import Picker from "emoji-picker-react";
 function ChatScreen({ chat, intialMessages, chatId }) {
   const { currentUser } = useAuth();
   const router = useRouter();
@@ -32,10 +33,12 @@ function ChatScreen({ chat, intialMessages, chatId }) {
   const recipientEmail = getRecipientEmail(chat.users, currentUser);
   const [recipient, setRecipient] = useState(null);
   const endOfMessageRef = useRef(null);
+  const [showEmoji, setShowEmoji] = useState(false);
   useEffect(() => {
     const messageRef = collection(db, "chats", router.query.id, "messages");
     const messageQuery = query(messageRef, orderBy("timestamp", "asc"));
     const unsubscribe = onSnapshot(messageQuery, (querySnapshot) => {
+      setShowEmoji(false);
       const data = querySnapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
@@ -92,16 +95,25 @@ function ChatScreen({ chat, intialMessages, chatId }) {
     );
     setInput("");
   };
+
+  const onEmojiClick = (event, emojiObject) => {
+    setInput((prev) => prev + emojiObject.emoji);
+    // setShowEmoji(false);
+  };
   return (
     <Container>
       <Header>
         {recipient ? (
           <Avatar src={recipient.photoURL} />
         ) : (
-          <Avatar>{recipientEmail[0]}</Avatar>
+          <Avatar>{recipientEmail[0].toUpperCase()}</Avatar>
         )}
         <HeaderInfo>
-          <h3>{recipientEmail}</h3>
+          {recipient ? (
+            <h3>{recipient.displayName}</h3>
+          ) : (
+            <h3>{recipientEmail}</h3>
+          )}
           <p>
             Last Active:{" "}
             {recipient ? (
@@ -124,19 +136,38 @@ function ChatScreen({ chat, intialMessages, chatId }) {
         {/* Show messages */}
         {messages.map((message) => {
           return (
-            <Message key={message.id} user={message.user} message={message} />
+            <Message
+              key={message.id}
+              id={message.id}
+              user={message.user}
+              message={message}
+            />
           );
         })}
         <EndOfMessage ref={endOfMessageRef} />
       </MessageContainer>
       <InputContainer>
-        <InsertEmoticonIcon />
-        <Input value={input} onChange={(e) => setInput(e.target.value)} />
+        <IconButton>
+          <InsertEmoticonIcon
+            onClick={(e) => {
+              e.preventDefault();
+              setShowEmoji((prev) => !prev);
+            }}
+          />
+        </IconButton>
+        <Input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Type a message"
+        />
         <button hidden disabled={!input} type="submit" onClick={sendMessage}>
           Send
         </button>
-        <MicIcon />
+        {/* <MicIcon /> */}
       </InputContainer>
+      {showEmoji && (
+        <Picker onEmojiClick={onEmojiClick} pickerStyle={{ width: "100%" }} />
+      )}
     </Container>
   );
 }

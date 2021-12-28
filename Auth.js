@@ -36,8 +36,17 @@ export const AuthProvider = ({ children }) => {
     return <Login />;
   }
 
+  const updateName = (name) => {
+    console.log(name);
+    if (currentUser) {
+      const data = currentUser;
+      data.displayName = name;
+      setCurrentUser(data);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ currentUser }}>
+    <AuthContext.Provider value={{ currentUser, updateName }}>
       {children}
     </AuthContext.Provider>
   );
