@@ -18,6 +18,7 @@ function FadeMenu() {
   const handleClose = (check) => {
     setAnchorEl(null);
     if (check === 3) {
+      router.push("/", undefined, { shallow: true });
       auth.signOut();
     } else if (check === 2) {
       router.replace(`/profile`);

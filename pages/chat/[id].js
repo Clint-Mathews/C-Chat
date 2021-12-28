@@ -13,10 +13,16 @@ import {
 import { db } from "../../firebase";
 import { useAuth } from "../../Auth";
 import getRecipientEmail from "../../utils/getRecipientEmail";
+import { useRouter } from "next/router";
 function ShowChat({ chat, messages, chatId }) {
+  const router = useRouter();
   const { currentUser } = useAuth();
   const messageData = JSON.parse(messages);
   const chatData = JSON.parse(chat);
+  if (!chatData?.users?.length > 0) {
+    router.replace("/");
+    return <></>;
+  }
   return (
     <Container>
       <Head>
