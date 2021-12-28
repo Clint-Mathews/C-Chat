@@ -24,7 +24,8 @@ import MicIcon from "@material-ui/icons/Mic";
 import { useAuth } from "../Auth";
 import getRecipientEmail from "../utils/getRecipientEmail";
 import TimeAgo from "timeago-react";
-import Picker from "emoji-picker-react";
+import dynamic from "next/dynamic";
+const Picker = dynamic(() => import("emoji-picker-react"), { ssr: false });
 import FadeMenuDelete from "./FadeMenuDelete";
 function ChatScreen({ chat, intialMessages, chatId }) {
   const { currentUser } = useAuth();
@@ -146,13 +147,13 @@ function ChatScreen({ chat, intialMessages, chatId }) {
         <EndOfMessage ref={endOfMessageRef} />
       </MessageContainer>
       <InputContainer>
-        <IconButton>
-          <InsertEmoticonIcon
-            onClick={(e) => {
-              e.preventDefault();
-              setShowEmoji((prev) => !prev);
-            }}
-          />
+        <IconButton
+          onClick={(e) => {
+            e.preventDefault();
+            setShowEmoji((prev) => !prev);
+          }}
+        >
+          <InsertEmoticonIcon />
         </IconButton>
         <Input
           value={input}
