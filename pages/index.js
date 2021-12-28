@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Sidebar from "../components/Sidebar";
+import WrapLayout from "../components/WrapLayout";
 import styled from "styled-components";
 import Image from "next/image";
 export default function Home() {
@@ -10,7 +10,7 @@ export default function Home() {
         <meta name="description" content="C-Chat" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Sidebar />
+      <WrapLayout />
       <ChatContainer>
         <Image
           width="200px"

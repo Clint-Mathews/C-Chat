@@ -1,28 +1,104 @@
 import styled from "styled-components";
 import Sidebar from "../components/Sidebar";
-function Layout({ children }) {
+import * as React from "react";
+import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
+import Button from "@material-ui/core/Button";
+import { useAuth } from "../Auth";
+import Avatar from "@material-ui/core/Avatar";
+import { update } from "../utils/reducer/showHideSidebarSlice";
+import { useSelector, useDispatch } from "react-redux";
+import clsx from "clsx";
+import { makeStyles } from "@material-ui/core/styles";
+const useStyles = makeStyles({
+  list: {
+    width: 250,
+  },
+  fullList: {
+    width: "auto",
+  },
+});
+function Layout() {
+  const { currentUser } = useAuth();
+  const open = useSelector((state) => state.sidebarSlice.showSidebar);
+  const dispatch = useDispatch();
+  const classes = useStyles();
+  const toggleDrawer = (open) => (event) => {
+    if (
+      event &&
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    dispatch(update(open));
+  };
   return (
-    <Wrapper>
-      <Container>
-        <Sidebar />
-        {children}
-      </Container>
-    </Wrapper>
+    <>
+      <Button
+        onClick={toggleDrawer(true)}
+        style={{ border: "1px solid whitesmoke" }}
+      >
+        <UserAvatar src={currentUser.photoURL} />
+      </Button>
+      <SwipeableDrawer
+        anchor="left"
+        open={open}
+        onClose={toggleDrawer(false)}
+        onOpen={toggleDrawer(true)}
+      >
+        <div
+          className={clsx(classes.list, {
+            [classes.fullList]: true,
+          })}
+          role="presentation"
+        >
+          <Sidebar />
+        </div>
+      </SwipeableDrawer>
+    </>
   );
 }
 
 export default Layout;
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+const UserAvatar = styled(Avatar)`
+  cursor: pointer;
+  // Opacity so that on hover it shows a higlight effect
+  :hover {
+    opacity: 0.8;
+  }
 `;
-const Container = styled.div`
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-  align-items: center;
-`;
+
+//   const list = (anchor) => (
+//     <Box
+//       sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+//       role="presentation"
+//       onClick={toggleDrawer(anchor, false)}
+//       onKeyDown={toggleDrawer(anchor, false)}
+//     >
+//       <List>
+//         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+//           <ListItem button key={text}>
+//             <ListItemIcon>
+//               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+//             </ListItemIcon>
+//             <ListItemText primary={text} />
+//           </ListItem>
+//         ))}
+//       </List>
+//       <Divider />
+//       <List>
+//         {['All mail', 'Trash', 'Spam'].map((text, index) => (
+//           <ListItem button key={text}>
+//             <ListItemIcon>
+//               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+//             </ListItemIcon>
+//             <ListItemText primary={text} />
+//           </ListItem>
+//         ))}
+//       </List>
+//     </Box>
+//   );
+
+// }

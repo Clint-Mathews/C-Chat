@@ -1,6 +1,6 @@
 import Head from "next/head";
 import styled from "styled-components";
-import Sidebar from "../../components/Sidebar";
+import WrapLayout from "../../components/WrapLayout";
 import ChatScreen from "../../components/ChatScreen";
 import {
   doc,
@@ -32,7 +32,7 @@ function ShowChat({ chat, messages, chatId }) {
         <meta name="description" content="Chat" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Sidebar />
+      <WrapLayout />
       <ChatContainer>
         <ChatScreen
           chat={chatData}
@@ -73,6 +73,7 @@ export async function getServerSideProps(context) {
 }
 const Container = styled.div`
   display: flex;
+  min-width: 360px;
 `;
 const ChatContainer = styled.div`
   flex: 1;

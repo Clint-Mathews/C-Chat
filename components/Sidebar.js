@@ -21,9 +21,12 @@ import Friends from "./Friends";
 import FadeMenu from "./FadeMenu";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { hide } from "../utils/reducer/showHideSidebarSlice";
+import { useDispatch } from "react-redux";
 function Sidebar() {
   const { currentUser } = useAuth();
   const router = useRouter();
+  const dispatch = useDispatch();
   const [chat, setChat] = useState([]);
   // const [friends, setFriends] = useState([]);
   const chatsCollectionRef = collection(db, "chats");
@@ -96,7 +99,8 @@ function Sidebar() {
       await setDoc(doc(chatsCollectionRef), {
         users: [currentUser.email, input],
       });
-      getChat();
+      await getChat();
+      dispatch(hide());
     } else {
       // Email invalid
       console.log("Enter valid or non duplicate email");
@@ -178,23 +182,30 @@ function Sidebar() {
   const createChatFromFriend = () => {};
   return (
     <Container>
-      <Header>
-        <Link href="/" passHref>
-          <UserAvatar src={currentUser.photoURL} />
-        </Link>
-        <IconsContainer>
-          <IconButton onClick={createChat}>
-            <ChatIcon />
-          </IconButton>
-          <FadeMenu />
-        </IconsContainer>
-      </Header>
-      {/* <Search>
+      <HeadMain>
+        <Header>
+          <div
+            onClick={() => {
+              dispatch(hide());
+              router.replace("/");
+            }}
+          >
+            <UserAvatar src={currentUser.photoURL} />
+          </div>
+          <IconsContainer>
+            <IconButton onClick={createChat}>
+              <ChatIcon />
+            </IconButton>
+            <FadeMenu />
+          </IconsContainer>
+        </Header>
+        {/* <Search>
         <SearchIcon />
         <SearchInput placeholder="Search chat" />
       </Search> */}
-      {/* <SideBarButton onClick={createChat}>Start a new Chat</SideBarButton> */}
-      <SideBarSeperator>CHATS</SideBarSeperator>
+        {/* <SideBarButton onClick={createChat}>Start a new Chat</SideBarButton> */}
+        <SideBarSeperator>CHATS</SideBarSeperator>
+      </HeadMain>
       {/* list of chats will be here */}
       {chat.map((chat) => (
         <Chat key={chat.id} currentUser={currentUser} chat={chat} />
@@ -229,16 +240,18 @@ const Container = styled.div`
   -ns-overflow-stlye: none;
   scrollbar-width: none;
 `;
+const HeadMain = styled.div`
+  position: sticky;
+  z-index: 1;
+  top: 0;
+`;
 //Since we need it to stay at top
 const Header = styled.div`
   display: flex;
-  position: sticky;
-  top: 0;
   background-color: white;
-  z-index: 1;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
+  padding: 0px 15px 0px 15px;
   height: 80px;
   border-bottom: 1px solid whitesmoke;
 `;
@@ -271,6 +284,7 @@ const SideBarButton = styled(Button)`
 `;
 const SideBarSeperator = styled.div`
   width: 100%;
+  background-color: white;
   padding: 8px;
   text-align: center;
   font-weight: 500;

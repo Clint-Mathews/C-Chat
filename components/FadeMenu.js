@@ -6,11 +6,13 @@ import { IconButton } from "@material-ui/core";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { auth } from "../firebase";
 import { useRouter } from "next/router";
+import { hide } from "../utils/reducer/showHideSidebarSlice";
+import { useDispatch } from "react-redux";
 function FadeMenu() {
   const router = useRouter();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-
+  const dispatch = useDispatch();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -42,8 +44,22 @@ function FadeMenu() {
         onClose={() => handleClose(1)}
         TransitionComponent={Fade}
       >
-        <MenuItem onClick={() => handleClose(2)}>Profile</MenuItem>
-        <MenuItem onClick={() => handleClose(3)}>Logout</MenuItem>
+        <MenuItem
+          onClick={() => {
+            dispatch(hide());
+            handleClose(2);
+          }}
+        >
+          Profile
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            dispatch(hide());
+            handleClose(3);
+          }}
+        >
+          Logout
+        </MenuItem>
       </Menu>
     </>
   );

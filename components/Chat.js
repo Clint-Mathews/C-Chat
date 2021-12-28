@@ -6,7 +6,12 @@ import { auth, db } from "../firebase";
 import { query, where, collection, getDocs } from "firebase/firestore";
 import moment from "moment";
 import Link from "next/link";
+import { hide } from "../utils/reducer/showHideSidebarSlice";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 function Chat({ chat, currentUser }) {
+  const router = useRouter();
+  const dispatch = useDispatch();
   const [recipientUser, setRecipientUser] = useState(null);
   const recipientEmail = getRecipientEmail(chat.users, currentUser);
   useEffect(() => {
@@ -26,44 +31,47 @@ function Chat({ chat, currentUser }) {
   // console.log(chat);
   return (
     <>
-      <Link href={`/chat/${chat.id}`}>
-        <a>
-          <Container key={chat.id}>
+      <div
+        onClick={() => {
+          dispatch(hide());
+          router.replace(`/chat/${chat.id}`);
+        }}
+      >
+        <Container key={chat.id}>
+          {recipientUser ? (
+            <UserAvatar src={recipientUser.photoURL} />
+          ) : (
+            <UserAvatar> {recipientEmail[0].toUpperCase()} </UserAvatar>
+          )}
+          <ChatContainer>
             {recipientUser ? (
-              <UserAvatar src={recipientUser.photoURL} />
+              <>
+                <MessageTime>
+                  <p style={{ margin: 0 }}>{recipientUser.displayName}</p>
+                  <MsgTimeStamp>
+                    {chat.timestamp
+                      ? moment(chat.timestamp).format("LT")
+                      : "..."}
+                  </MsgTimeStamp>
+                </MessageTime>
+                <LastMessage>{chat.latestMessage}</LastMessage>
+              </>
             ) : (
-              <UserAvatar> {recipientEmail[0].toUpperCase()} </UserAvatar>
-            )}
-            <ChatContainer>
-              {recipientUser ? (
-                <>
-                  <MessageTime>
-                    <p style={{ margin: 0 }}>{recipientUser.displayName}</p>
-                    <MsgTimeStamp>
-                      {chat.timestamp
-                        ? moment(chat.timestamp).format("LT")
-                        : "..."}
-                    </MsgTimeStamp>
-                  </MessageTime>
-                  <LastMessage>{chat.latestMessage}</LastMessage>
-                </>
-              ) : (
-                <>
-                  <MessageTime>
-                    <p>{recipientEmail}</p>
-                    {/* <MsgTimeStamp>
+              <>
+                <MessageTime>
+                  <p>{recipientEmail}</p>
+                  {/* <MsgTimeStamp>
                       {chat.timestamp
                         ? moment(chat.timestamp).format("LT")
                         : "..."}
                     </MsgTimeStamp> */}
-                  </MessageTime>
-                  {/* <LastMessage></LastMessage> */}
-                </>
-              )}
-            </ChatContainer>
-          </Container>
-        </a>
-      </Link>
+                </MessageTime>
+                {/* <LastMessage></LastMessage> */}
+              </>
+            )}
+          </ChatContainer>
+        </Container>
+      </div>
     </>
   );
 }
