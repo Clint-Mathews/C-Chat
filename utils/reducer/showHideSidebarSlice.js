@@ -20,7 +20,6 @@ export const showHideSidebarSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
 export const { show, hide, update } = showHideSidebarSlice.actions;
 
 export default showHideSidebarSlice.reducer;

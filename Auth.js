@@ -11,7 +11,6 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     return auth.onIdTokenChanged(async (user) => {
       if (!user) {
-        // console.log("No user");
         setCurrentUser(null);
         setLoading(false);
         return;
@@ -26,7 +25,6 @@ export const AuthProvider = ({ children }) => {
       await setDoc(doc(db, "users", user.uid), userData);
       setCurrentUser(user);
       setLoading(false);
-      // console.log(token);
     });
   }, []);
   if (loading) {
@@ -37,7 +35,6 @@ export const AuthProvider = ({ children }) => {
   }
 
   const updateName = (name) => {
-    // console.log(name);
     if (currentUser) {
       const data = currentUser;
       data.displayName = name;

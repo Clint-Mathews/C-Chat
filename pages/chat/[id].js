@@ -50,8 +50,6 @@ export async function getServerSideProps(context) {
   const chatRef = doc(db, "chats", id);
   const chatSnap = await getDoc(chatRef);
   const chat = { id: chatSnap.id, ...chatSnap.data() };
-  // console.log("chat");
-  // console.log(chat);
   const messageRes = collection(db, "chats", id, "messages");
   const messageQuery = query(messageRes, orderBy("timestamp", "asc"));
   const messageSnapshot = await getDocs(messageQuery);
@@ -61,8 +59,6 @@ export async function getServerSideProps(context) {
       ...messages,
       timestamp: messages.timestamp.toDate().getTime(),
     }));
-  // console.log("messages");
-  // console.log(messages);
   return {
     props: {
       chat: JSON.stringify(chat),

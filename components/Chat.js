@@ -4,10 +4,10 @@ import getRecipientEmail from "../utils/getRecipientEmail";
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { query, where, collection, getDocs } from "firebase/firestore";
-import moment from "moment";
 import { hide } from "../utils/reducer/showHideSidebarSlice";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
+import formatTime from "../utils/formatTime";
 function Chat({ chat, currentUser }) {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -21,13 +21,9 @@ function Chat({ chat, currentUser }) {
       setRecipientUser(
         usersSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))[0]
       );
-      // console.log(
-      //   usersSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))[0]
-      // );
     }
     getUser();
   }, [recipientEmail]);
-  // console.log(chat);
   return (
     <>
       <div
@@ -48,9 +44,7 @@ function Chat({ chat, currentUser }) {
                 <MessageTime>
                   <p style={{ margin: 0 }}>{recipientUser.displayName}</p>
                   <MsgTimeStamp>
-                    {chat.timestamp
-                      ? moment(chat.timestamp).format("LT")
-                      : "..."}
+                    {chat.timestamp ? formatTime(chat.timestamp) : "..."}
                   </MsgTimeStamp>
                 </MessageTime>
                 <LastMessage>{chat.latestMessage}</LastMessage>

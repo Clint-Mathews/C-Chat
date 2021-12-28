@@ -42,13 +42,11 @@ function ChatScreen({ chat, intialMessages, chatId }) {
         id: doc.id,
         timestamp: doc.data().timestamp?.toDate().getTime(),
       }));
-      // console.log(data);
       setMessages(data ? data : []);
       scrollToBottom();
     });
     let unsubscribeRecipient;
     if (chat.users?.length > 0) {
-      // console.log(chat.users);
       const recipientRef = collection(db, "users");
       const recipientQuery = query(
         recipientRef,
@@ -56,7 +54,6 @@ function ChatScreen({ chat, intialMessages, chatId }) {
       );
       unsubscribeRecipient = onSnapshot(recipientQuery, (querySnapshot) => {
         const data = querySnapshot?.docs?.[0]?.data();
-        // console.log(data);
         setRecipient(data ? data : null);
       });
     }
@@ -96,7 +93,6 @@ function ChatScreen({ chat, intialMessages, chatId }) {
 
   const onEmojiClick = (event, emojiObject) => {
     setInput((prev) => prev + emojiObject.emoji);
-    // setShowEmoji(false);
   };
   return (
     <Container>
