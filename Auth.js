@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   const updateName = (name) => {
-    console.log(name);
+    // console.log(name);
     if (currentUser) {
       const data = currentUser;
       data.displayName = name;

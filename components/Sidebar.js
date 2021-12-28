@@ -99,6 +99,7 @@ function Sidebar() {
       getChat();
     } else {
       // Email invalid
+      console.log("Enter valid or non duplicate email");
     }
   };
   async function checkChatExist(recipientEmail) {

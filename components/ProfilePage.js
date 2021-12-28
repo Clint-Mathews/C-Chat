@@ -10,12 +10,10 @@ import { db } from "../firebase";
 
 function ProfilePage() {
   const { currentUser, updateName } = useAuth();
-  console.log(currentUser);
+  // console.log(currentUser);
   const router = useRouter();
   const [name, setName] = useState(currentUser.displayName);
   const updateAndNavigate = async (update) => {
-    console.log(name);
-    console.log(update);
     if (update) {
       if (!name) {
         console.log("Enter name");

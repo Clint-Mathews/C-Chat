@@ -25,6 +25,7 @@ import { useAuth } from "../Auth";
 import getRecipientEmail from "../utils/getRecipientEmail";
 import TimeAgo from "timeago-react";
 import Picker from "emoji-picker-react";
+import FadeMenuDelete from "./FadeMenuDelete";
 function ChatScreen({ chat, intialMessages, chatId }) {
   const { currentUser } = useAuth();
   const router = useRouter();
@@ -124,12 +125,10 @@ function ChatScreen({ chat, intialMessages, chatId }) {
           </p>
         </HeaderInfo>
         <HeaderIcons>
-          <IconButton>
+          {/* <IconButton>
             <AttachFileIcon />
-          </IconButton>
-          <IconButton>
-            <MoreVertIcon />
-          </IconButton>
+          </IconButton> */}
+          <FadeMenuDelete chatId={chatId} />
         </HeaderIcons>
       </Header>
       <MessageContainer>
