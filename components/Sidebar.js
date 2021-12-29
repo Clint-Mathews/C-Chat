@@ -130,6 +130,7 @@ const Container = styled.div`
   min-width: 300px;
   min-height: 350px;
   overflow-y: scroll;
+  background-color: var(--primary);
   // Hide scroll bar
   ::-webkit-scrollbar {
     display: none;
