@@ -28,6 +28,7 @@ export default function LoginPage() {
         {/* Since we can directly access the files in public folder directly */}
         <Logo src="/CChatLogo.png" alt="Chat Icon Img" />
         <Button
+          aria-label="Login"
           disabled={loginDisabled}
           variant="outlined"
           style={{ textAlign: "center" }}

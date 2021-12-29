@@ -35,10 +35,20 @@ function Layout() {
   return (
     <>
       <Button
+        aria-label="Side Nav"
         onClick={toggleDrawer(true)}
         style={{ border: "1px solid whitesmoke" }}
       >
-        <UserAvatar src={currentUser.photoURL} />
+        {currentUser?.photoURL ? (
+          <UserAvatar
+            src={currentUser.photoURL}
+            alt={`${currentUser.displayName} image`}
+          />
+        ) : (
+          <UserAvatar alt={`${currentUser.displayName} image`}>
+            {currentUser.displayName[0].toUpperCase()}
+          </UserAvatar>
+        )}
       </Button>
       <SwipeableDrawer
         anchor="left"

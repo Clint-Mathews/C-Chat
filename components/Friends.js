@@ -4,9 +4,12 @@ function Friends({ id, photoURL, displayName }) {
   return (
     <Container key={id}>
       {photoURL ? (
-        <UserAvatar src={photoURL} />
+        <UserAvatar
+          src={photoURL}
+          alt={`${photoURL ? photoURL : displayName} image`}
+        />
       ) : (
-        <UserAvatar>{displayName[0]}</UserAvatar>
+        <UserAvatar alt={`${displayName} image`}>{displayName[0]}</UserAvatar>
       )}
       <p>{displayName}</p>
     </Container>

@@ -34,9 +34,16 @@ function Chat({ chat, currentUser }) {
       >
         <Container key={chat.id}>
           {recipientUser ? (
-            <UserAvatar src={recipientUser.photoURL} />
+            <UserAvatar
+              alt={`${
+                recipientUser ? recipientUser.displayName : recipientEmail
+              } image`}
+              src={recipientUser.photoURL}
+            />
           ) : (
-            <UserAvatar> {recipientEmail[0].toUpperCase()} </UserAvatar>
+            <UserAvatar alt={`${recipientEmail} image`}>
+              {recipientEmail[0].toUpperCase()}{" "}
+            </UserAvatar>
           )}
           <ChatContainer>
             {recipientUser ? (

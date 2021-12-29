@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
-import Button from "@material-ui/core/Button";
 import ChatIcon from "@material-ui/icons/Chat";
 import * as EmailValidator from "email-validator";
 import { db } from "../firebase";
@@ -83,10 +82,19 @@ function Sidebar() {
               router.replace("/");
             }}
           >
-            <UserAvatar src={currentUser.photoURL} />
+            {currentUser?.photoURL ? (
+              <UserAvatar
+                src={currentUser.photoURL}
+                alt={`${currentUser.displayName} image`}
+              />
+            ) : (
+              <UserAvatar alt={`${currentUser.displayName} image`}>
+                {currentUser.displayName[0].toUpperCase()}
+              </UserAvatar>
+            )}
           </div>
           <IconsContainer>
-            <IconButton onClick={createChat}>
+            <IconButton onClick={createChat} aria-label="Create chat">
               <ChatIcon />
             </IconButton>
             <FadeMenu />

@@ -60,6 +60,7 @@ function ProfilePage() {
       </EmailContainer>
       <ButtonContainer>
         <Button
+          aria-label="Update Profile"
           style={{ marginRight: "10px" }}
           variant="outlined"
           color="primary"
@@ -67,7 +68,11 @@ function ProfilePage() {
         >
           Update
         </Button>
-        <Button variant="outlined" onClick={() => updateAndNavigate(false)}>
+        <Button
+          variant="outlined"
+          aria-label="Cancel Changes"
+          onClick={() => updateAndNavigate(false)}
+        >
           Cancel
         </Button>
       </ButtonContainer>

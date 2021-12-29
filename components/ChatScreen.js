@@ -98,9 +98,14 @@ function ChatScreen({ chat, intialMessages, chatId }) {
     <Container>
       <Header>
         {recipient ? (
-          <Avatar src={recipient.photoURL} />
+          <Avatar
+            src={recipient.photoURL}
+            alt={`${recipient ? recipient.displayName : recipientEmail} image`}
+          />
         ) : (
-          <Avatar>{recipientEmail[0].toUpperCase()}</Avatar>
+          <Avatar alt={`${recipientEmail} image`}>
+            {recipientEmail[0].toUpperCase()}
+          </Avatar>
         )}
         <HeaderInfo>
           {recipient ? (
@@ -140,6 +145,7 @@ function ChatScreen({ chat, intialMessages, chatId }) {
       </MessageContainer>
       <InputContainer>
         <IconButton
+          aria-label="Emoji"
           onClick={(e) => {
             e.preventDefault();
             setShowEmoji((prev) => !prev);
@@ -152,7 +158,13 @@ function ChatScreen({ chat, intialMessages, chatId }) {
           onChange={(e) => setInput(e.target.value)}
           placeholder="Type a message"
         />
-        <button hidden disabled={!input} type="submit" onClick={sendMessage}>
+        <button
+          hidden
+          disabled={!input}
+          type="submit"
+          aria-label="Input"
+          onClick={sendMessage}
+        >
           Send
         </button>
         {/* <MicIcon /> */}
@@ -165,7 +177,10 @@ function ChatScreen({ chat, intialMessages, chatId }) {
 }
 
 export default ChatScreen;
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 const Header = styled.div`
   position: sticky;
   background-color: white;
@@ -191,6 +206,7 @@ const HeaderInfo = styled.div`
 `;
 const HeaderIcons = styled.div``;
 const MessageContainer = styled.div`
+  flex-grow: 1;
   padding: 30px;
   background-color: #e5ded8;
   min-height: 80vh;
