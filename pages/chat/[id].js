@@ -29,8 +29,10 @@ function ShowChat({ chat, messages, chatId }) {
         <title>
           Chat with {getRecipientEmail(chatData.users, currentUser)}
         </title>
-        <meta name="description" content="Chat" />
-        <link rel="icon" href="/favicon.ico" />
+        <meta
+          name="description"
+          content={`Chat with {getRecipientEmail(chatData.users, currentUser)}`}
+        />
       </Head>
       <WrapLayout />
       <ChatContainer>

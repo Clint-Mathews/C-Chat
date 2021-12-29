@@ -34,11 +34,7 @@ function Layout() {
   };
   return (
     <>
-      <Button
-        aria-label="Side Nav"
-        onClick={toggleDrawer(true)}
-        style={{ border: "1px solid whitesmoke" }}
-      >
+      <ButtonSideBar aria-label="Side Nav" onClick={toggleDrawer(true)}>
         {currentUser?.photoURL ? (
           <UserAvatar
             src={currentUser.photoURL}
@@ -49,7 +45,7 @@ function Layout() {
             {currentUser.displayName[0].toUpperCase()}
           </UserAvatar>
         )}
-      </Button>
+      </ButtonSideBar>
       <SwipeableDrawer
         anchor="left"
         open={open}
@@ -75,5 +71,13 @@ const UserAvatar = styled(Avatar)`
   cursor: pointer;
   :hover {
     opacity: 0.8;
+  }
+`;
+
+const ButtonSideBar = styled(Button)`
+  background-color: var(--primary);
+  border-right: 1px solid var(--icon-color);
+  :hover {
+    background-color: var(--primary-hover);
   }
 `;

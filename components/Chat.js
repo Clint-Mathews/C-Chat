@@ -27,6 +27,7 @@ function Chat({ chat, currentUser }) {
   return (
     <>
       <div
+        style={{ borderBottom: "1px solid #ffffff" }}
         onClick={() => {
           dispatch(hide());
           router.replace(`/chat/${chat.id}`);
@@ -59,14 +60,10 @@ function Chat({ chat, currentUser }) {
             ) : (
               <>
                 <MessageTime>
-                  <p>{recipientEmail}</p>
-                  {/* <MsgTimeStamp>
-                      {chat.timestamp
-                        ? moment(chat.timestamp).format("LT")
-                        : "..."}
-                    </MsgTimeStamp> */}
+                  <p style={{ margin: 0 }}>{recipientEmail}</p>
+                  <MsgTimeStamp>{"...."}</MsgTimeStamp>
                 </MessageTime>
-                {/* <LastMessage></LastMessage> */}
+                <LastMessage>No Message</LastMessage>
               </>
             )}
           </ChatContainer>
@@ -81,26 +78,35 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
-  padding: 12px;
+  padding: 10px;
   word-break: break-word;
+  background-color: var(--primary);
   :hover {
-    background-color: #e9eaeb;
+    background-color: var(--primary-hover);
   }
 `;
 const UserAvatar = styled(Avatar)`
   margin: 5px;
+  /* margin-top: 12px; */
   margin-right: 15px;
 `;
 const ChatContainer = styled.div`
   width: 100%;
+  padding: 10px;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #2a2f32, #32383b);
+  box-shadow: 29px 29px 57px #131516, -29px -29px 57px #4b5358;
 `;
 const LastMessage = styled.div`
-  color: gray;
-  font-size: 14px;
+  font-size: 13px;
+  padding-left: 2px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 240px;
 `;
 const MsgTimeStamp = styled.div`
-  color: gray;
-  font-size: 14px;
+  font-size: 13px;
 `;
 
 const MessageTime = styled.div`

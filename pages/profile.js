@@ -6,7 +6,6 @@ function profile() {
       <Head>
         <title>C-Chat Profile</title>
         <meta name="description" content="C-Chat Profile" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <ProfilePage />
     </div>

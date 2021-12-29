@@ -94,7 +94,16 @@ function Sidebar() {
             )}
           </div>
           <IconsContainer>
-            <IconButton onClick={createChat} aria-label="Create chat">
+            <IconButton
+              style={{
+                color: "var(--icon-color)",
+                borderRadius: "50%",
+                background: "linear-gradient(145deg, #262a2d, #2d3236)",
+                boxShadow: "8px 8px 21px #111314, -8px -8px 21px #434b50",
+              }}
+              onClick={createChat}
+              aria-label="Create chat"
+            >
               <ChatIcon />
             </IconButton>
             <FadeMenu />
@@ -114,9 +123,10 @@ function Sidebar() {
 export default Sidebar;
 
 const Container = styled.div`
+  color: white;
   height: 100vh;
   flex: 0.45;
-  border-right: 1px solid whitesmoke;
+  border-right: 1px solid var(--secondary);
   min-width: 300px;
   min-height: 350px;
   overflow-y: scroll;
@@ -140,10 +150,15 @@ const Header = styled.div`
   align-items: center;
   padding: 0px 15px 0px 15px;
   height: 80px;
-  border-bottom: 1px solid whitesmoke;
+  /* border-bottom: 1px solid whitesmoke; */
+  background-color: var(--secondary);
 `;
 const UserAvatar = styled(Avatar)`
   cursor: pointer;
+  /* color: var(--icon-color); */
+  border-radius: 50%;
+  background: linear-gradient(145deg, #262a2d, #2d3236);
+  box-shadow: 8px 8px 21px #585858, -8px -8px 21px #383838;
   // Opacity so that on hover it shows a higlight effect
   :hover {
     opacity: 0.8;
@@ -152,14 +167,16 @@ const UserAvatar = styled(Avatar)`
 
 const SideBarSeperator = styled.div`
   width: 100%;
-  background-color: white;
   padding: 8px;
   text-align: center;
   font-weight: 500;
+  color: var(--icon-color);
+  background: linear-gradient(145deg, #2a2f32, #32383b);
+  box-shadow: 29px 29px 57px #131516, -29px -29px 57px #4b5358;
   //Increase priority of rule
   &&& {
-    border-top: 1px solid whitesmoke;
-    border-bottom: 1px solid whitesmoke;
+    border-top: 1px solid var(--icon-color);
+    border-bottom: 1px solid var(--icon-color);
   }
 `;
 const IconsContainer = styled.div``;

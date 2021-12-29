@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
     });
   }, []);
   if (loading) {
-    return <Loading type="spin" color="#08a1e4"></Loading>;
+    return <Loading type="spin" color="var(--primary)"></Loading>;
   }
   if (!currentUser) {
     return <Login />;

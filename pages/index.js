@@ -6,20 +6,28 @@ export default function Home() {
   return (
     <Container>
       <Head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>C-Chat</title>
-        <meta name="description" content="C-Chat" />
-        <link rel="icon" href="/favicon.ico" />
+        <meta
+          name="description"
+          content="C-Chat is a chatting application using firebase and Next.JS"
+        />
+        <meta name="author" content="Clint Mathews" />
+        <meta name="copyright" content="Clint Mathews" />
+        <meta name="robots" content="index, follow" />
+        <meta name="rating" content="general" />
       </Head>
       <WrapLayout />
       <ChatContainer>
         <Image
-          width="200px"
-          height="200px"
+          width="400px"
+          height="400px"
           alt="C-Chat"
-          blurDataURL="/CChatLogo.png"
-          src="/CChatLogo.png"
+          blurDataURL="/Messages.svg"
+          src="/Messages.svg"
         />
-        <p>Lets Start chatting</p>
+        <h2 style={{ color: "white" }}>Lets Start chat!</h2>
       </ChatContainer>
     </Container>
   );
@@ -31,6 +39,9 @@ const ChatContainer = styled.div`
   flex: 1;
   overflow: scroll;
   height: 100vh;
+  background-image: url("back.png");
+  background-size: cover;
+  background-repeat: no-repeat;
   ::-webkit-scrollbar {
     display: none;
   }

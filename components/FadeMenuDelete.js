@@ -30,6 +30,12 @@ function FadeMenuDelete({ chatId }) {
       <IconButton
         aria-controls="fade-menu"
         aria-haspopup="true"
+        style={{
+          color: "var(--icon-color)",
+          borderRadius: "50%",
+          background: "linear-gradient(145deg, #262a2d, #2d3236)",
+          boxShadow: "8px 8px 21px #111314, -8px -8px 21px #434b50",
+        }}
         onClick={handleClick}
       >
         <MoreVertIcon />

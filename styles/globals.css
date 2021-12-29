@@ -14,3 +14,14 @@ a {
 * {
   box-sizing: border-box;
 }
+:root {
+  --primary: #131c21;
+  --primary-hover: #2d3134;
+  --secondary: #2a2f32;
+  --icon-color: #b1b3b5;
+  --background: #585d60;
+}
+
+.MuiMenu-paper {
+  background-color: var(--icon-color) !important;
+}

@@ -180,10 +180,10 @@ export default ChatScreen;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  color: white;
 `;
 const Header = styled.div`
   position: sticky;
-  background-color: white;
   z-index: 100;
   top: 0;
   display: flex;
@@ -191,6 +191,7 @@ const Header = styled.div`
   height: 80px;
   align-items: center;
   border-bottom: 1px solid whitesmoke;
+  background-color: var(--secondary);
 `;
 const HeaderInfo = styled.div`
   margin-left: 15px;
@@ -200,7 +201,7 @@ const HeaderInfo = styled.div`
   }
   > p {
     font-size: 14px;
-    color: grey;
+    /* color: grey; */
     margin: 0px 0px 14px 0px;
   }
 `;
@@ -208,8 +209,23 @@ const HeaderIcons = styled.div``;
 const MessageContainer = styled.div`
   flex-grow: 1;
   padding: 30px;
-  background-color: #e5ded8;
   min-height: 80vh;
+  background-color: white;
+  background-size: 58px 58px;
+  background-position: 0px 2px, 4px 35px, 29px 31px, 33px 6px, 0px 36px, 4px 2px,
+    29px 6px, 33px 30px;
+  background-image: linear-gradient(
+      335deg,
+      var(--background) 23px,
+      transparent 23px
+    ),
+    linear-gradient(155deg, var(--background) 23px, transparent 23px),
+    linear-gradient(335deg, var(--background) 23px, transparent 23px),
+    linear-gradient(155deg, var(--background) 23px, transparent 23px),
+    linear-gradient(335deg, var(--background) 10px, transparent 10px),
+    linear-gradient(155deg, var(--background) 10px, transparent 10px),
+    linear-gradient(335deg, var(--background) 10px, transparent 10px),
+    linear-gradient(155deg, var(--background) 10px, transparent 10px);
 `;
 const EndOfMessage = styled.div``;
 const InputContainer = styled.form`
@@ -218,7 +234,7 @@ const InputContainer = styled.form`
   padding: 10px;
   position: sticky;
   bottom: 0;
-  background-color: white;
+  background-color: var(--icon-color);
   z-index: 100;
 `;
 const Input = styled.input`
@@ -229,5 +245,6 @@ const Input = styled.input`
   padding: 20px;
   margin-left: 15px;
   margin-right: 15px;
-  background-color: whitesmoke;
+  background-color: var(--primary-hover);
+  color: white;
 `;
