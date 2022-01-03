@@ -72,6 +72,16 @@ const UserAvatar = styled(Avatar)`
   :hover {
     opacity: 0.8;
   }
+  animation: pulse 1s infinite;
+  border-radius: 50%;
+  @keyframes pulse {
+    from {
+      box-shadow: 0 0 0 0 var(--icon-color);
+    }
+    to {
+      box-shadow: 0 0 20px 20px rgba(0, 0, 0, 0);
+    }
+  }
 `;
 
 const ButtonSideBar = styled(Button)`
