@@ -9,8 +9,6 @@
 
 ### 🏠 [Homepage](https://c-chat.vercel.app/)
 
-### ✨ [Demo](https://c-chat.vercel.app/)
-
 ## Install
 
 ```sh
