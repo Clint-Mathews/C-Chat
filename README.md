@@ -1,7 +1,7 @@
 <h1 align="center">Welcome to C-Chat 👋</h1>
 <p>
-  <a href="https://twitter.com/clint\_mathews\_" target="_blank">
-    <img alt="Twitter: clint\_mathews\_" src="https://img.shields.io/twitter/follow/clint\_mathews\_.svg?style=social" />
+  <a href="https://twitter.com/clint_mathews_" target="_blank">
+    <img alt="Twitter: clint_mathews_" src="https://img.shields.io/twitter/follow/clint_mathews_.svg?style=social" />
   </a>
 </p>
 
