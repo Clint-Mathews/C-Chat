@@ -11,6 +11,7 @@
     <img alt="Twitter: clint\_mathews\_" src="https://img.shields.io/twitter/follow/clint_mathews_.svg?style=social" />
   </a>
 </p>
+
 > C-Chat is chatting application using Next.js and Firebase.
 
 ### 🏠 [Homepage](https://c-chat.vercel.app/)
