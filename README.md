@@ -27,7 +27,12 @@ yarn install
 ```sh
 yarn dev
 ```
-
+## Technical Dependencies:
+- Next Js
+- Firebase
+- Reduxjs/toolkit
+- Material-ui
+- Styled componenets
 ## Author
 
 👤 **Clint Mathews**
