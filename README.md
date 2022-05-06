@@ -14,7 +14,7 @@
 
 > C-Chat is chatting application using Next.js and Firebase.
 
-### 🏠 [Website link](https://c-chat.vercel.app/)
+### 🏠 [C-Chat link](https://c-chat.vercel.app/)
 
 ## Install
 
